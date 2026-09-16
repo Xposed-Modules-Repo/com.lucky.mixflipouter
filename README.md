@@ -2,33 +2,41 @@
 
 # WidgetEnhancer
 
-**为 Xiaomi MIX Flip 外屏提供自定义小部件能力的 LSPosed 模块**
+为 **Xiaomi MIX Flip 外屏**提供自定义小部件能力的 LSPosed 模块
 
 [![Release](https://img.shields.io/github/v/release/Xposed-Modules-Repo/com.lucky.mixflipouter?label=Release)](https://github.com/Xposed-Modules-Repo/com.lucky.mixflipouter/releases/latest)
-[![License](https://img.shields.io/badge/License-GPL--3.0--only-blue.svg)](https://github.com/luckylca/WidgetEnhancer/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](https://github.com/luckylca/WidgetEnhancer/blob/main/LICENSE)
 [![Source](https://img.shields.io/badge/Source-WidgetEnhancer-black)](https://github.com/luckylca/WidgetEnhancer)
+[![LSPosed](https://img.shields.io/badge/Framework-LSPosed-orange)](https://github.com/LSPosed/LSPosed)
 
 </div>
 
-WidgetEnhancer 将自定义小部件直接接入 HyperOS 原生外屏小部件系统。创建后的小部件会出现在「设置 → 外屏 → 小部件 → 自定义」中，可以和官方小部件一样添加、删除、排序和使用。
+WidgetEnhancer 将自定义小部件直接接入 HyperOS 原生外屏小部件系统。创建后的小部件会出现在系统的「外屏 → 小部件 → 自定义」中，可以像官方小部件一样添加、删除、排序和使用。
 
-> **兼容性**：当前主要适配 Xiaomi MIX Flip（`ruyi`），需要 Root、LSPosed 和 HyperOS 外屏桌面 `com.miui.fliphome`。
+> [!IMPORTANT]
+> 本模块面向 **Xiaomi MIX Flip**，需要 Root、LSPosed 和 HyperOS 外屏桌面 `com.miui.fliphome`。
 
 ## 功能
 
 ### 媒体小部件
 
-- 支持图片和循环视频
+在外屏展示图片或循环视频。
+
+- 支持图片和视频
 - 支持裁剪、缩放和位置调整
 - 按照外屏比例生成预览
 - 视频支持循环播放
 
 ### 音乐小部件
 
-- 显示歌曲名称、歌手和专辑封面
-- 显示当前歌词与下一句歌词
-- 支持 MediaSession 播放状态与媒体控制
-- 支持网易云音乐同步歌词适配
+显示当前正在播放的音乐，并提供歌词和媒体控制。
+
+- 歌曲名称与歌手
+- 专辑封面
+- 当前歌词与下一句歌词
+- 播放状态
+- MediaSession 媒体控制
+- 网易云音乐同步歌词适配
 
 | 操作 | 功能 |
 | --- | --- |
@@ -40,9 +48,9 @@ WidgetEnhancer 将自定义小部件直接接入 HyperOS 原生外屏小部件�
 
 ### 快捷按钮小部件
 
-可以创建包含 **1～6 个按钮**的快捷小部件，并根据按钮数量自动匹配布局。
+可以创建包含 **1～6 个按钮**的快捷小部件，按钮数量会自动匹配对应布局。
 
-支持绑定应用和常用系统操作，包括：
+支持绑定应用以及常用系统操作，包括：
 
 - 打开应用
 - 音量控制与静音
@@ -50,53 +58,84 @@ WidgetEnhancer 将自定义小部件直接接入 HyperOS 原生外屏小部件�
 - 勿扰模式
 - 自动旋转
 - 锁屏
-- 播放 / 暂停、上一首、下一首
+- 播放 / 暂停
+- 上一首 / 下一首
 - 部分快捷设置功能
 
-## 小部件管理
+### 通知小部件
 
-模块自带配置应用，可用于创建、编辑、删除、重命名、预览和导入小部件。
+在外屏同步显示最近的 **3 条通知**，每条显示应用图标、标题和内容。
 
-创建完成后进入：
+| 操作 | 功能 |
+| --- | --- |
+| 单击通知 | 跳转对应应用 |
+| 左滑通知 | 删除该通知 |
+
+需要授予通知使用权，该权限也用于媒体会话读取。
+
+### 应用小部件
+
+提供一整页 **2 × 3 网格**，可以自由摆放手机应用提供的 Android AppWidget。
+
+- 支持 1×1、2×1、1×2、2×2、1×3、2×3 槽位
+- 支持按住拖动调整位置
+- 点按槽位可调整尺寸、圆角或删除
+- 支持小部件自身点击和滚动交互
+- 首次使用时按系统提示完成 AppWidget 授权
+
+### ZIP / MAML 小部件
+
+支持导入外部 `.zip` / `.mtz` MAML 小部件包，例如从主题商店提取的 2×3 小部件。
+
+- 可作为系统原生 MAML 小部件导入
+- 也可加入 2 × 3 应用小部件页面进行混合布局
+- 由 FlipHome 原生 MAML 宿主渲染
+
+### 小部件管理
+
+模块自带配置应用，可以直接管理外屏小部件：
+
+- 创建、编辑和删除
+- 重命名
+- 启用 / 禁用
+- 实时预览
+- 导入小部件
+
+创建完成后，进入：
 
 ```text
-设置
-→ 外屏
-→ 小部件
-→ 自定义
+设置 → 外屏 → 小部件 → 自定义
 ```
 
-即可将自定义小部件添加到外屏。
+即可将其添加到外屏。
 
 ## 实现原理
 
-WidgetEnhancer 基于 LSPosed / Xposed Hook 实现，主要作用于：
+WidgetEnhancer 基于 **LSPosed / Xposed Hook** 实现，主要作用于 Xiaomi MIX Flip 的外屏桌面进程：
 
 ```text
 com.miui.fliphome
 ```
 
-模块将自定义小部件信息注入 HyperOS 原有的小部件列表，并尽可能继续使用系统原有的添加、删除、排序、页面管理和持久化逻辑。
+模块将自定义小部件信息注入 HyperOS 原有的小部件列表，并复用系统已有的小部件管理和页面机制。
 
-```text
-WidgetEnhancer
-      │
-      ├── 小部件配置与数据
-      │
-      └── LSPosed Hook
-               │
-               ▼
-        com.miui.fliphome
-               │
-               ├── 官方小部件列表
-               ├── 添加 / 删除 / 排序
-               └── 外屏页面
-                       │
-                       ▼
-                自定义小部件
+```mermaid
+flowchart TD
+    A[WidgetEnhancer 配置应用] --> B[小部件配置与媒体数据]
+    B --> C[LSPosed Hook]
+    C --> D[com.miui.fliphome]
+    D --> E[HyperOS 原生小部件列表]
+    E --> F[添加 / 删除 / 排序 / 持久化]
+    F --> G[外屏自定义小部件]
 ```
 
-因此模块主要负责自定义小部件的配置、数据和显示内容，而不是重新实现一套独立的外屏桌面。
+因此，小部件的添加、删除、排序、页面管理和持久化会尽可能继续使用 HyperOS 原有逻辑，模块主要负责自定义小部件的数据、配置与显示内容。
+
+## 兼容性
+
+当前主要适配 **Xiaomi MIX Flip（ruyi）+ HyperOS**。
+
+由于不同 HyperOS 版本的内部实现可能存在差异，系统 OTA 后可能需要更新模块才能继续正常使用。
 
 ## LSPosed 作用域
 
@@ -106,13 +145,15 @@ WidgetEnhancer
 com.miui.fliphome
 ```
 
+这是模块的主要 Hook 目标。
+
 ### 可选：网易云音乐
 
 ```text
 com.netease.cloudmusic
 ```
 
-用于启用更完整的网易云音乐同步歌词适配。
+用于获取更完整的网易云音乐同步歌词数据。
 
 ### 可选：SystemUI
 
@@ -120,38 +161,50 @@ com.netease.cloudmusic
 com.android.systemui
 ```
 
-用于部分高级快捷设置功能。
+用于部分高级快捷设置功能。不使用相关功能时无需勾选。
 
 ## 安装
 
-1. 下载并安装最新版本 APK。
+1. 从 [Releases](https://github.com/Xposed-Modules-Repo/com.lucky.mixflipouter/releases/latest) 下载并安装 APK。
 2. 在 LSPosed 中启用 WidgetEnhancer。
 3. 至少勾选 `com.miui.fliphome` 作用域。
-4. 根据需要勾选网易云音乐或 SystemUI 可选作用域。
+4. 根据需要勾选网易云音乐或 SystemUI。
 5. 重启手机。
-6. 打开 WidgetEnhancer 创建小部件，并在系统外屏设置中添加。
+6. 打开 WidgetEnhancer 创建小部件。
+7. 进入「设置 → 外屏 → 小部件 → 自定义」添加小部件。
 
 ## 权限
 
-根据所使用的功能，可能需要授予：
+部分功能需要额外系统权限：
 
-- 通知使用权：获取媒体播放状态和音乐信息
-- 相机权限：控制手电筒
-- 勿扰模式访问权限：控制勿扰模式
-- 修改系统设置权限：控制自动旋转等功能
+| 权限 | 用途 |
+| --- | --- |
+| 通知使用权 | 获取媒体播放状态、音乐信息和最近通知 |
+| 相机权限 | 控制手电筒 |
+| 勿扰模式访问权限 | 控制勿扰模式 |
+| 修改系统设置 | 控制自动旋转等系统功能 |
+| AppWidget 系统授权 | 首次添加第三方应用小部件时完成系统绑定授权 |
 
 不使用对应功能时无需授予相关权限。
 
-## 源代码
+## 构建
 
-源码、问题反馈与开发信息：
+```bash
+git clone https://github.com/luckylca/WidgetEnhancer.git
+cd WidgetEnhancer
+./gradlew assembleRelease
+```
 
-https://github.com/luckylca/WidgetEnhancer
+构建产物位于：
+
+```text
+app/build/outputs/apk/release/
+```
 
 ## 开源协议
 
-WidgetEnhancer 采用 **GNU General Public License v3.0 only（GPL-3.0-only）** 开源。
+WidgetEnhancer 使用 **GNU General Public License v3.0（GPL-3.0）** 开源。
 
-许可证内容：
+你可以在 GPL-3.0 条款下使用、修改和分发本项目。分发修改版本时，需要遵守 GPL-3.0 对源代码公开及许可证保留等要求。
 
-https://github.com/luckylca/WidgetEnhancer/blob/main/LICENSE
+完整协议请参阅 [LICENSE](LICENSE)。
